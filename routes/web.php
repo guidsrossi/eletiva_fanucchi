@@ -27,7 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/admin/classes',   ClassController::class)->except('show');
     Route::resource('/admin/electives', ElectiveController::class)->except('show');
     Route::get('/admin/reports', [ReportController::class, 'index'])->name('reports');
+    Route::get('/admin/reports/export', [ReportController::class, 'export'])->name('reports.export');   
 });
+
 
 Route::get('/inscricao', [RegistrationController::class,'create'])->name('form');
 Route::post('/inscricao', [RegistrationController::class,'store'])->name('form.store');
