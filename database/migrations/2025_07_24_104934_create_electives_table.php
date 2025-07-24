@@ -10,9 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::create('electives', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->unsignedInteger('seats')->default(40);
             $table->timestamps();
         });
     }
@@ -22,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('class_models');
+        Schema::dropIfExists('electives');
     }
 };

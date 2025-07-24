@@ -10,9 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::create('elective_choices', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->foreignId('student_id')->constrained();
+            $table->foreignId('elective_id')->constrained();
+            $table->tinyInteger('priority');        // 1‑4
+            $table->boolean('accepted')->default(false);
             $table->timestamps();
         });
     }
@@ -22,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('class_models');
+        Schema::dropIfExists('elective_choices');
     }
 };
