@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\ElectiveChoice;
-use App\Exports\FullReportExport;
+use App\Exports\ElectiveSheetsExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
@@ -26,6 +26,6 @@ class ReportController extends Controller
 
     public function export()
     {
-        return Excel::download(new FullReportExport, 'relatorio_eletivas.xlsx');
+        return Excel::download(new ElectiveSheetsExport, 'relatorio_por_eletiva.xlsx');
     }
 }

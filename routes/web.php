@@ -23,15 +23,19 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/admin',  AdminDashboard::class)->name('admin');
-    Route::resource('/admin/classes',   ClassController::class)->except('show');
+    Route::get('/admin', AdminDashboard::class)->name('admin');
+    Route::resource('/admin/classes', ClassController::class)->except('show');
     Route::resource('/admin/electives', ElectiveController::class)->except('show');
     Route::get('/admin/reports', [ReportController::class, 'index'])->name('reports');
-    Route::get('/admin/reports/export', [ReportController::class, 'export'])->name('reports.export');   
+    Route::get('/admin/reports/export', [ReportController::class, 'export'])->name('reports.export');
 });
 
+Route::delete('/admin/inscricoes/limpar-eletiva/{elective}', [\App\Http\Controllers\AdminDashboard::class, 'clearElective'])
+    ->name('admin.clearElective');
+Route::delete('/admin/inscricoes/limpar-todas', [\App\Http\Controllers\AdminDashboard::class, 'clearAll'])
+    ->name('admin.clearAll');
 
-Route::get('/inscricao', [RegistrationController::class,'create'])->name('form');
-Route::post('/inscricao', [RegistrationController::class,'store'])->name('form.store');
+Route::get('/inscricao', [RegistrationController::class, 'create'])->name('form');
+Route::post('/inscricao', [RegistrationController::class, 'store'])->name('form.store');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
