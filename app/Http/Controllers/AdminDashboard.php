@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-
 class AdminDashboard extends Controller
 {
     public function __invoke()
     {
+        abort_unless(auth()->user()?->is_admin, 403);
         return view('admin.dashboard', [
-            'user' => Auth::user(),
+            'user' => auth()->user(),
         ]);
     }
 }

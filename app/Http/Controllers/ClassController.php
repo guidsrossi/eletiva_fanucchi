@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ClassModel;
 use Illuminate\Http\Request;
+use App\Models\ClassModel;
 
 class ClassController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            abort_unless(auth()->user()?->is_admin, 403);
+            return $next($request);
+        });
+    }
+
     public function index()
     {
         return view('admin.classes.index', [

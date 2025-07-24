@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ElectiveChoice;
-use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            abort_unless(auth()->user()?->is_admin, 403);
+            return $next($request);
+        });
+    }
+
     public function index()
     {
         $data = ElectiveChoice::select('elective_id', 'priority', DB::raw('count(*) as total'))
